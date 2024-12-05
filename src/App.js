@@ -30,7 +30,7 @@ const App = () => {
 
     const fetchNFTs = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/getNFTs?address=${account}`);
+            const response = await fetch(`https://clickergame-blockchain-bn-production.up.railway.app/getNFTs?address=${account}`);
             const data = await response.json();
             if (data.success) {
                 setNFTs(data.nfts);
@@ -52,7 +52,7 @@ const App = () => {
 
     const checkNFTStatus = async () => {
     try {
-        const response = await fetch(`http://localhost:3001/checkNFT?address=${account}`);
+        const response = await fetch(`https://clickergame-blockchain-bn-production.up.railway.app/checkNFT?address=${account}`);
         const data = await response.json();
         if (data.success) {
             setHasNFT(data.hasNFT);
@@ -67,6 +67,7 @@ const App = () => {
 useEffect(() => {
     if (account) {
         checkNFTStatus();
+        updateLeaderboard();
     }
 }, [account]);
 
@@ -107,7 +108,7 @@ useEffect(() => {
       setIsClaiming(true); // แสดง Pop-up ระหว่างดำเนินการ
       
       try {
-          const response = await fetch('http://localhost:3001/claim', {
+          const response = await fetch('https://clickergame-blockchain-bn-production.up.railway.app/claim', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ address: account }),
@@ -151,7 +152,7 @@ useEffect(() => {
 
 const updateLeaderboard = async () => {
     try {
-        const response = await fetch('http://localhost:3001/leaderboard', {
+        const response = await fetch('https://clickergame-blockchain-bn-production.up.railway.app/leaderboard', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ address: account, clicks }),
@@ -169,7 +170,7 @@ const updateLeaderboard = async () => {
 
 const fetchLeaderboard = async () => {
     try {
-        const response = await fetch('http://localhost:3001/leaderboard');
+        const response = await fetch('https://clickergame-blockchain-bn-production.up.railway.app/leaderboard');
         const data = await response.json();
         if (data.success) {
             setLeaderboard(data.leaderboard);
@@ -183,7 +184,7 @@ const claimNFT = async () => {
     setIsClaiming(true); // แสดง Pop-up
 
     try {
-        const response = await fetch('http://localhost:3001/claimNFT', {
+        const response = await fetch('https://clickergame-blockchain-bn-production.up.railway.app/claimNFT', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ address: account }),
@@ -211,7 +212,7 @@ useEffect(() => {
     // ฟังก์ชันสำหรับดึงจำนวนเหรียญ
     const fetchCoins = async (address) => {
       try {
-          const response = await fetch(`http://localhost:3001/coins?address=${address}`);
+          const response = await fetch(`https://clickergame-blockchain-bn-production.up.railway.app/coins?address=${address}`);
           const data = await response.json();
           if (data.success) {
               setCoins(data.balance); // อัปเดตสถานะจำนวนเหรียญ
